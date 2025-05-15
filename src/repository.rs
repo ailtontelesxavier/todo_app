@@ -48,4 +48,31 @@ impl TodoRepo {
         self.num_all_itens -= 1;
         Ok(())
     }
+
+    pub fn update(
+        &mut self,
+        id: &UYuid,
+        text: Option<String>,
+        is_completed: Option<bool>,
+    ) -> Result<Todo, TodoRepoError> {
+        let toto = self.items.get_mut(id).Ok_or(TodoRepoError::NotFound)?;
+
+        if let Some(is_completed) = is_completed {
+            todo.is_completed = is_completed;
+
+            if todo.is_completed {
+                self.num_active -= 1;
+                self.num_completed += 1;
+            } else {
+                self.num_active += 1;
+                self.num_completed -= 1;
+            }
+            
+        }
+        if let Some(text) = text {
+            todo.text = text;
+        }
+        Ok(todo.clone())
+    }
+
 }
