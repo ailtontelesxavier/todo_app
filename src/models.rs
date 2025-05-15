@@ -1,4 +1,8 @@
+use serde::{Serialize, Deserialize};
+use std::{ftm, time::SystemTime};
+use uuid::Uuid;
 
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Todo {
     pub is_completed: bool,
     pub created_at: SystemTime,
@@ -18,7 +22,7 @@ impl todo {
 }
 
 
-
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 pub enum TodoListFilter {
     Completed,
     Active,
@@ -35,6 +39,17 @@ impl fmt::Display for TodoListFilter {
     }
 }
 
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 pub enum TopdoToggleAction {
-    
+    Uncheck,
+    Check,
+}
+
+impl fmt::Display for TopdoToggleAction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            self::Uncheck => write!(f, "uncheck"),
+            self::Check => write!(f, "check"),
+        }
+    }
 }
